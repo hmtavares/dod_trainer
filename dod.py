@@ -54,15 +54,6 @@ def setup_logging(time_now, log_level, log_path, log_filename, mode):
     file_handler.setFormatter(log_formatter)
     root_logger.addHandler(file_handler)
 
-    # Special logger for logs that should only emit to file
-    file_logger = logging.getLogger('file')
-    file_logger.propagate = False
-    file_logger.addHandler(file_handler)
-
-#    console_handler = logging.StreamHandler(sys.stdout)
-#    console_handler.setFormatter(log_formatter)
-#    root_logger.addHandler(console_handler)
-
     log = logging.getLogger(mode)
     return log_file
 
@@ -87,12 +78,10 @@ full_log_file = setup_logging(time_now, 'DEBUG', '.', args.log_file, 'UPGRADE_PR
 # 4 players - 6 cards
 # 5 players - 5 cards
 # 6 players - 4 cards
-
 cards_per_player = {3:8,
                     4:6,
                     5:5,
                     6:4}
-
 
 #Create deck of cards
 suits = ['D', 'H', 'S']
@@ -220,14 +209,11 @@ print "Your hand: {}".format(hands[0])
 #
 # Start the command processor. The processor should
 # always have 3 cards from the question deck exposed.
-# Possibly with all possible questions calculated as options
 #
 # Commands:
 #
 # - Ask - Ask a question based on the question deck cards.
 #         validate, answer and draw 3 new cards.
-#         Maybe this takes an option paramater if the question
-#         cards can deterministically show all possible question options.
 #
 # - Reveal - Show the evidence cards and the hands of
 #            the other players. Ends game
@@ -235,15 +221,8 @@ print "Your hand: {}".format(hands[0])
 # - Hand - Show the player hand and the exposed card if there is one,
 #          and the current 3 cards off the question deck.
 #
-# - Replay - Show all asked questions and answers
+# - Report - Show all asked questions and answers
 #
-
-# Get the first 3 cards off the question deck
-#print "Before: {}".format(question_deck)
-#question_cards = question_deck[:3]
-#del question_deck[:3]
-#print "Question: {}".format(question_cards)
-#print "After : {}".format(question_deck)
 
 def draw_questions(q_deck, d_deck):
     question_cards = []
@@ -284,7 +263,7 @@ class DodException(Exception):
     pass
 
 class Deduce(cmd.Cmd):
-    """Play Deduce or DIe"""
+    """Play Deduce or Die"""
 
     def __init__(self, question_deck, discard_deck):
         #
@@ -294,8 +273,6 @@ class Deduce(cmd.Cmd):
         cmd.Cmd.__init__(self)
         self.prompt = str(self.question_cards) + ':'
 
-#    question_cards = None
-#    prompt = str(question_cards) + ':'
     intro = "Deduce or Die"
 
     doc_header = 'doc_header'
