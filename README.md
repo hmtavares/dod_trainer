@@ -7,14 +7,14 @@ Some handy references
 * [Rules for Deduce or Die](http://www.thegamesjournal.com/rules/DeduceOrDie.shtml)
 * [Deduce or Die Boardgame Geek page](https://boardgamegeek.com/boardgame/19765/deduce-or-die)
 
-#Origin
+# Origin
 I was introduced to the game by some friends and was terrible at it. I decided I needed to "practice". I cobbled together this solitaire version of DoD to facilitate practicing.
 
 The core game mechanics are completly formalized and don't require any human interaction. You "ask" another player a formal question using one of the following forms:
-* How many cards do you have between x & y of any suit
-* How many cards do yu have between X & Y of a specific suit
+* How many cards do you have between X & Y of any suit
+* How many cards do you have between X & Y of a specific suit
 
-Normally this would rotate around the table, each player asking a question. In this solitaire format the single player asks all the questions of the other players. Not as fun but definitly aids in figuring out what kinds of questions to ask, how to record the question and the response and how to use the information to deduce the final answer.
+Normally this would rotate around the table, each player asking a question. In this solitaire format the single player asks all the questions of the other (computer) players. Not as fun but definitly aids in figuring out what kinds of questions to ask, how to record the question and the response and how to use the information to deduce the final answer.
 
 # Requirements
 * Python 2.7
@@ -47,21 +47,21 @@ This would start a 4 player game and use defaults for everything else. It would 
 This document assumes you're familiar with the rules of Deduce or Die. Please refer to the rules link above. A few highlights just in case you decided to skip the rules:
 * 3-6 players
 * Player Deck: One Deck of cards made up of 1-9, Diamonds, Hearts, Spades (27 cards)
-* Question Deck: One deck of cards made up two setups like the Plaer Deck (54 cards)
-* The Deal from the Player Deck
-** From the Player Deck. Deal two secret cards called "Evidence". Set them aside.
-** Deal each player an equal number of cards using as many cards as possible.
-** For all but 5 players this will leave one card left over. Expose this card to all players.
-* Each player stats which suit they have the least number of cards.
-* The Deal from the Question Deck
-** Expose the top 3 cards from the question deck.
-** The current player (always player 1 in this solitaire game) asks another player about thier hand based on these 3 cards.
-** Repeat.
+* Question Deck: One deck of cards made up two setups like the Player Deck (54 cards)
+* Deal from the Player Deck
+   * Deal two secret cards called "Evidence". Set them aside.
+   * Deal each player an equal number of cards using as many cards as possible.
+   * For all but 5 players this will leave one card left over. Expose this card to all players.
+* Each player states which suit they have the least number of cards.
+* Deal from the Question Deck
+   * Expose the top 3 cards from the question deck.
+   * The current player (always player 1 in this solitaire game) asks another player about thier hand based on these 3 cards.
+   * Repeat.
 
 
-#The Game
+# The Game
 
-##Start
+## Start
 
 Let's start a 4 player game
 ```
@@ -90,7 +90,7 @@ In the above example we see that our hand has 6 cards (a 4 player game gives eac
 
 We also see that the "3 Spades" has been exposed. (In a 4 player game one card is exposed).
 
-Additionally we know the which suit each player has the least of. This is all the information we know at the start of the game.
+Additionally we know which suit each player has the least of. This is all the information we know at the start of the game.
 
 ## The Prompt
 Following the initial information discussed above there is a prompt that looks like this:
@@ -100,10 +100,10 @@ Following the initial information discussed above there is a prompt that looks l
 
 This shows the 3 cards drawn from the question deck and is waiting for a command.
 
-##Commands
+## Commands
 ### hand
 * parameters
-** None.
+   * None.
 
 Display the players hand and other information known at the start of the game.
 
@@ -118,8 +118,8 @@ Your hand: ['1D', '7D', '1H', '1S', '4S', '6D']
 ```
 
 ### report
-* parameters
-** None.
+* Parameters
+   * None.
 
 Display all the questions asked and the responses
 
@@ -130,8 +130,8 @@ Ask: Player 2 | 8-1:h / Answer: 2
 ```
 
 ### reveal
-* parameters
-** None.
+* Parameters
+   * None.
 
 Display all the secret information for the game.
 * Each Players hands
@@ -150,11 +150,11 @@ Player 4: ['7S', '2S', '8S', '9D', '4H', '6H']
 This command is used when you think you have deduced the hidden cards or if you're giving up.
 
 ### ask
-* parameters
-** player number
-** start of range (inclusive)
-** end of range (inclusive)
-** suit (optional)
+* Parameters
+   * player number
+   * start of range (inclusive)
+   * end of range (inclusive)
+   * suit (optional)
 
 Display the number of cards the indicated player has in the range requested. If a suit is provided then the count will only include cards of that suit. If no suit is provided then the count will be for all suits.
 
@@ -172,7 +172,7 @@ Above we can see the question asked is "Player 3, how many cards do you have of 
 Ask: Player 2 | 8-1:h / Answer: 2
 ['5H', '9H', '7H']:
 ```
-Above we see the question asked is "Player 2, how many cards do you ahve of Hearts, 8 through 1". The answer is "2 cards". Note that the range wraps around so the range 8-1 would be [8, 9, 1]
+Above we see the question asked is "Player 2, how many cards do you have of Hearts, 8 through 1". The answer is "2 cards". Note that the range wraps around so the range 8-1 would be [8, 9, 1]
 
 Note that there is no validation so any range can always be asked. Don't cheat.
 
